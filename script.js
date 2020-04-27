@@ -1,37 +1,39 @@
 window.onload = function() {
-    var palpite = document.querySelector('.palpite');
-    var ultimoResultado = document.querySelector('.ultimoResultado');
-    var envioPalpite = document.querySelector('.envioPalpite');
-    var campoPalpite = document.getElementById('inputPalpite');
+    var tentativas = document.querySelector('.tentativas');
+    var resultadoFinal = document.querySelector('.resultadoFinal');
+    var inputEnviar = document.querySelector('.inputEnviar');
+    var campoPalpite = document.querySelector('.campoPalpite');
     var resultado = gerarCidadeAleatoria();
-    var tentativa = 0;
+    var numeroTentativa = 0;
 
     function conferirPalpite() {
         var palpiteUsuario = String(campoPalpite.value);
+        tentativas.textContent = tentativas.textContent + palpiteUsuario + ' ';
         limparValores();
+
         if (!palpiteUsuario) {
-            alert("Digite um número válido!");
+            alert("Digite uma cidade válida!");
             return;
         }
-        tentativa++;
         if (resultado === palpiteUsuario.toLowerCase()) {
-            ultimoResultado.textContent = 'Parabens! vc acertou!';
-            ultimoResultado.style.backgroundColor = 'green';
+            resultadoFinal.textContent = 'Parabens! você acertou!';
+            resultadoFinal.style.backgroundColor = 'green';
             fimJogo();
             return;
         }
-        if (tentativa === 5) {
-            ultimoResultado.textContent = 'Game Over';
-            ultimoResultado.style.backgroundColor = 'red';
+        numeroTentativa++;
+        document.querySelector(".numeroTentativas").textContent = numeroTentativa;
+        if (numeroTentativa === 5) {
+            resultadoFinal.textContent = 'Game Over';
+            resultadoFinal.style.backgroundColor = 'red';
             fimJogo();
             return;
         }
-        palpite.textContent = palpite.textContent + palpiteUsuario + ' ';
     }
 
     function fimJogo() {
         campoPalpite.disabled = true;
-        envioPalpite.disabled = true;
+        inputEnviar.disabled = true;
         botaoReiniciado = document.createElement('button');
         botaoReiniciado.textContent = 'Iniciar novo jogo';
         document.body.appendChild(botaoReiniciado);
@@ -44,13 +46,13 @@ window.onload = function() {
     }
 
     function reiniciarJogo() {
-        palpite.textContent = '';
-        tentativa = 0;
+        tentativas.textContent = '';
+        numeroTentativa = 0;
         document.body.removeChild(botaoReiniciado);
         campoPalpite.disabled = false;
-        envioPalpite.disabled = false;
-        ultimoResultado.style.backgroundColor = "white";
-        ultimoResultado.textContent = '';
+        inputEnviar.disabled = false;
+        resultadoFinal.style.backgroundColor = "white";
+        resultadoFinal.textContent = '';
         resultado = gerarCidadeAleatoria();
         limparValores();
     }
@@ -63,6 +65,5 @@ window.onload = function() {
         return resultado;
     }
 
-    envioPalpite.addEventListener('click', conferirPalpite);
-
+    inputEnviar.addEventListener('click', conferirPalpite);
 }
