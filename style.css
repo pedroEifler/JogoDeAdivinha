@@ -1,0 +1,33 @@
+html{
+    font-family: sans-serif;
+}
+
+body{
+    width: 50%;
+    max-width: 800px;
+    min-width: 480px;
+    margin: 0 auto;
+}
+.ultimoResultado{
+    color: white;
+    padding: 3px;
+}
+.envioPalpite {
+    padding: 7px;
+    color: white;
+    background-color: black;
+    border-radius:10px; 
+    border: 1px solid;
+}
+.envioPalpite:hover {
+    padding: 7px;
+    color: black;
+    background-color: white;
+    border-radius:10px;
+    border: 1px solid;
+}
+.ultimoResultado {
+    width: 150px;
+    text-align: center;
+    color: white; 
+}
