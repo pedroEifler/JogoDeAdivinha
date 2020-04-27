@@ -1,15 +1,9 @@
 window.onload = function() {
-    var numeroAleatorio = Math.floor(Math.random() * 7) + 1;
-
     var palpite = document.querySelector('.palpite');
     var ultimoResultado = document.querySelector('.ultimoResultado');
-    var baixoOuAlto = document.querySelector('.baixoOuAlto');
     var envioPalpite = document.querySelector('.envioPalpite');
     var campoPalpite = document.getElementById('inputPalpite');
-    var cidade = ['pomerode', 'blumenau', 'gaspar', 'ilhota', 'ascurra', 'navegantes', 'indaial', 'timbo']
-
-    var resultado = cidade[numeroAleatorio];
-    console.log("Resposta é: " + resultado);
+    var resultado = gerarCidadeAleatoria();
     var tentativa = 0;
 
     function conferirPalpite() {
@@ -57,11 +51,17 @@ window.onload = function() {
         envioPalpite.disabled = false;
         ultimoResultado.style.backgroundColor = "white";
         ultimoResultado.textContent = '';
-        numeroAleatorio = Math.floor(Math.random() * 7) + 1;
-        resultado = cidade[numeroAleatorio];
-        console.log(numeroAleatorio);
+        resultado = gerarCidadeAleatoria();
         console.log(resultado)
         limparValores();
+    }
+
+    function gerarCidadeAleatoria() {
+        var cidade = ['pomerode', 'blumenau', 'gaspar', 'ilhota', 'ascurra', 'navegantes', 'indaial', 'timbo']
+        var numeroAleatorio = Math.floor(Math.random() * cidade.length);
+        var resultado = cidade[numeroAleatorio];
+        console.log("Resposta é: " + resultado);
+        return resultado;
     }
 
     envioPalpite.addEventListener('click', conferirPalpite);
