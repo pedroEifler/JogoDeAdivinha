@@ -8,7 +8,7 @@ window.onload = function() {
 
     function conferirPalpite() {
         var palpiteUsuario = String(campoPalpite.value);
-        tentativas.textContent = tentativas.textContent + palpiteUsuario + ' ';
+
         limparValores();
 
         if (!palpiteUsuario) {
@@ -30,6 +30,7 @@ window.onload = function() {
             return;
         }
 
+        tentativas.textContent += palpiteUsuario + ', ';
     }
 
     function fimJogo() {
@@ -69,8 +70,20 @@ window.onload = function() {
 
     function adicionarTentativas() {
         numeroTentativa++;
-        var tentativa = document.querySelector(".numeroTentativas").textContent;
-        return tentativa = numeroTentativa;
+        var tentativa = document.querySelector(".numeroTentativas");
+        animacaoTentativa(tentativa);
+        return tentativa.textContent = numeroTentativa;
+    }
+
+    function animacaoTentativa(tentativa) {
+        for (let num = 1; num <= 5; num++) {
+            if (numeroTentativa == num) {
+                tentativa.classList.add("tentativasNvl" + num)
+                if (numeroTentativa - 1 != 0) {
+                    tentativa.classList.remove("tentativasNvl" + numeroTentativa - 1)
+                }
+            }
+        }
     }
 
     inputEnviar.addEventListener('click', conferirPalpite);
