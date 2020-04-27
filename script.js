@@ -52,7 +52,6 @@ window.onload = function() {
         ultimoResultado.style.backgroundColor = "white";
         ultimoResultado.textContent = '';
         resultado = gerarCidadeAleatoria();
-        console.log(resultado)
         limparValores();
     }
 
