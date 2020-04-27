@@ -21,14 +21,15 @@ window.onload = function() {
             fimJogo();
             return;
         }
-        numeroTentativa++;
-        document.querySelector(".numeroTentativas").textContent = numeroTentativa;
+        numeroTentativa = adicionarTentativas();
+
         if (numeroTentativa === 5) {
             resultadoFinal.textContent = 'Game Over';
             resultadoFinal.style.backgroundColor = 'red';
             fimJogo();
             return;
         }
+
     }
 
     function fimJogo() {
@@ -36,6 +37,7 @@ window.onload = function() {
         inputEnviar.disabled = true;
         botaoReiniciado = document.createElement('button');
         botaoReiniciado.textContent = 'Iniciar novo jogo';
+        botaoReiniciado.className = 'botaoReiniciar';
         document.body.appendChild(botaoReiniciado);
         botaoReiniciado.addEventListener('click', reiniciarJogo);
     }
@@ -63,6 +65,12 @@ window.onload = function() {
         var resultado = cidade[numeroAleatorio];
         console.log("Resposta é: " + resultado);
         return resultado;
+    }
+
+    function adicionarTentativas() {
+        numeroTentativa++;
+        var tentativa = document.querySelector(".numeroTentativas").textContent;
+        return tentativa = numeroTentativa;
     }
 
     inputEnviar.addEventListener('click', conferirPalpite);
