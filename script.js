@@ -1,45 +1,44 @@
 window.onload = function() {
-    var numeroAleatorio = Math.floor(Math.random() * 7) + 1;
-
-    var palpite = document.querySelector('.palpite');
-    var ultimoResultado = document.querySelector('.ultimoResultado');
-    var baixoOuAlto = document.querySelector('.baixoOuAlto');
-    var envioPalpite = document.querySelector('.envioPalpite');
-    var campoPalpite = document.getElementById('inputPalpite');
-    var cidade = ['pomerode', 'blumenau', 'gaspar', 'ilhota', 'ascurra', 'navegantes', 'indaial', 'timbo']
-
-    var resultado = cidade[numeroAleatorio];
-    console.log("Resposta é: " + resultado);
-    var tentativa = 0;
+    var tentativas = document.querySelector('.tentativas');
+    var resultadoFinal = document.querySelector('.resultadoFinal');
+    var inputEnviar = document.querySelector('.inputEnviar');
+    var campoPalpite = document.querySelector('.campoPalpite');
+    var resultado = gerarCidadeAleatoria();
+    var numeroTentativa = 0;
 
     function conferirPalpite() {
         var palpiteUsuario = String(campoPalpite.value);
+
         limparValores();
+
         if (!palpiteUsuario) {
-            alert("Digite um número válido!");
+            alert("Digite uma cidade válida!");
             return;
         }
-        tentativa++;
         if (resultado === palpiteUsuario.toLowerCase()) {
-            ultimoResultado.textContent = 'Parabens! vc acertou!';
-            ultimoResultado.style.backgroundColor = 'green';
+            resultadoFinal.textContent = 'Parabens! você acertou!';
+            resultadoFinal.style.backgroundColor = 'green';
             fimJogo();
             return;
         }
-        if (tentativa === 5) {
-            ultimoResultado.textContent = 'Game Over';
-            ultimoResultado.style.backgroundColor = 'red';
+        numeroTentativa = adicionarTentativas();
+
+        if (numeroTentativa === 5) {
+            resultadoFinal.textContent = 'Game Over';
+            resultadoFinal.style.backgroundColor = 'red';
             fimJogo();
             return;
         }
-        palpite.textContent = palpite.textContent + palpiteUsuario + ' ';
+
+        tentativas.textContent += palpiteUsuario + ', ';
     }
 
     function fimJogo() {
         campoPalpite.disabled = true;
-        envioPalpite.disabled = true;
+        inputEnviar.disabled = true;
         botaoReiniciado = document.createElement('button');
         botaoReiniciado.textContent = 'Iniciar novo jogo';
+        botaoReiniciado.className = 'botaoReiniciar';
         document.body.appendChild(botaoReiniciado);
         botaoReiniciado.addEventListener('click', reiniciarJogo);
     }
@@ -50,20 +49,42 @@ window.onload = function() {
     }
 
     function reiniciarJogo() {
-        palpite.textContent = '';
-        tentativa = 0;
+        tentativas.textContent = '';
+        numeroTentativa = 0;
         document.body.removeChild(botaoReiniciado);
         campoPalpite.disabled = false;
-        envioPalpite.disabled = false;
-        ultimoResultado.style.backgroundColor = "white";
-        ultimoResultado.textContent = '';
-        numeroAleatorio = Math.floor(Math.random() * 7) + 1;
-        resultado = cidade[numeroAleatorio];
-        console.log(numeroAleatorio);
-        console.log(resultado)
+        inputEnviar.disabled = false;
+        resultadoFinal.style.backgroundColor = "white";
+        resultadoFinal.textContent = '';
+        resultado = gerarCidadeAleatoria();
         limparValores();
     }
 
-    envioPalpite.addEventListener('click', conferirPalpite);
+    function gerarCidadeAleatoria() {
+        var cidade = ['pomerode', 'blumenau', 'gaspar', 'ilhota', 'ascurra', 'navegantes', 'indaial', 'timbo']
+        var numeroAleatorio = Math.floor(Math.random() * cidade.length);
+        var resultado = cidade[numeroAleatorio];
+        console.log("Resposta é: " + resultado);
+        return resultado;
+    }
 
+    function adicionarTentativas() {
+        numeroTentativa++;
+        var tentativa = document.querySelector(".numeroTentativas");
+        animacaoTentativa(tentativa);
+        return tentativa.textContent = numeroTentativa;
+    }
+
+    function animacaoTentativa(tentativa) {
+        for (let num = 1; num <= 5; num++) {
+            if (numeroTentativa == num) {
+                tentativa.classList.add("tentativasNvl" + num)
+                if (numeroTentativa - 1 != 0) {
+                    tentativa.classList.remove("tentativasNvl" + numeroTentativa - 1)
+                }
+            }
+        }
+    }
+
+    inputEnviar.addEventListener('click', conferirPalpite);
 }

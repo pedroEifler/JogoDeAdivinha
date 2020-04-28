@@ -1,33 +1,79 @@
-html{
+@keyframes danger {
+    0% {
+        left: 2px;
+    }
+    50% {
+        left: -2px;
+    }
+    100% {
+        left: 2px;
+    }
+}
+
+html {
     font-family: sans-serif;
 }
 
-body{
+body {
     width: 50%;
     max-width: 800px;
     min-width: 480px;
     margin: 0 auto;
 }
-.ultimoResultado{
+
+.resultadoFinal {
     color: white;
     padding: 3px;
 }
-.envioPalpite {
+
+.resultadoFinal {
+    width: 150px;
+    text-align: center;
+    color: white;
+}
+
+.inputEnviar,
+.botaoReiniciar {
     padding: 7px;
     color: white;
     background-color: black;
-    border-radius:10px; 
+    border-radius: 10px;
     border: 1px solid;
 }
-.envioPalpite:hover {
+
+.inputEnviar:hover,
+.botaoReiniciar:hover {
     padding: 7px;
     color: black;
     background-color: white;
-    border-radius:10px;
+    border-radius: 10px;
     border: 1px solid;
 }
-.ultimoResultado {
-    width: 150px;
-    text-align: center;
-    color: white; 
+
+.numeroTentativas {
+    padding: 3px 20px;
+}
+
+.tentativasNvl1 {
+    background-color: green;
+}
+
+.tentativasNvl2 {
+    background-color: greenyellow;
+}
+
+.tentativasNvl3 {
+    background-color: orange;
+}
+
+.tentativasNvl4 {
+    background-color: orangered;
+}
+
+.tentativasNvl5 {
+    background-color: red;
+    position: relative;
+    animation-name: danger;
+    animation-duration: 0.2s;
+    animation-direction: alternate-reverse;
 }
